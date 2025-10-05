@@ -1,0 +1,41 @@
+/*Crea un programa que:
+	1.- Declare una matriz de 4x4 de tipo int
+	2.- Inicialice todos los elementos en 0 usando ciclos anidados
+	3.- Imprima la matriz en formato de tabla*/
+#include <stdio.h>
+//Definimos filas y columnas como constantes
+#define FILAS 4
+#define COLUMNAS 4
+//Paso 1: Declaramos la matriz
+int matriz[FILAS][COLUMNAS];
+//Extraemos el total de filas de la matriz dividiendo el tamaño total en bytes de la matriz entre el tamaño en bytes de uno de sus elementos
+int totalDeFilas = sizeof(matriz)/sizeof(matriz[0]);
+/*Extraemos el total de columnas de la matriz dividiendo el tamaño en bytes de uno de sus elementos entre
+el tamaño en bytes del tipo de dato de la matriz*/
+int totalDeColumnas = sizeof(matriz[0])/sizeof(int);
+//Declaramos el valor con el que inicializamos los elementos de la matriz
+int valorInicial = 0;
+//Paso 2: Declaramos una funcion para inicializar nuestra matirz con elementos en 0
+void inicializarMatriz(int filas, int columnas, int inicializador){
+	for(int i = 0; i < filas; i++){
+		for(int j = 0; j < columnas; j++){
+			matriz[i][j] = inicializador;
+		}
+	}
+}
+//Paso 3: Declaramos una funcion para imprimir la matriz en formato de tabla
+void imprimirMatriz(int filas, int columnas){
+	for(int i = 0; i < filas; i++){
+		printf("[ ");
+		for(int j = 0; j < columnas; j++){
+			printf("%d ", matriz[i][j]);
+		}
+		printf("]\n");
+	}
+}
+//Funcion principal
+int main(){
+	inicializarMatriz(totalDeFilas, totalDeColumnas, valorInicial);
+	imprimirMatriz(totalDeFilas, totalDeColumnas);
+	return 0;
+}
