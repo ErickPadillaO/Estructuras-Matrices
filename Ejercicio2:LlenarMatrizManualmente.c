@@ -1,7 +1,7 @@
 /*Crea un programa que:
-	1.- Declare una matriz de 4x4 de tipo int
-	2.- Inicialice todos los elementos en 0 usando ciclos anidados
-	3.- Imprima la matriz en formato de tabla*/
+	1.- Pida al usuario ingresar los 16 valores de la matriz
+	2.- Almacene cada valor en su posición correspondiente
+	3.- Imprima la matriz completa al finalizar*/
 #include <stdio.h>
 //Definimos filas y columnas como constantes
 #define FILAS 4
@@ -13,13 +13,17 @@ int totalDeFilas = sizeof(matriz)/sizeof(matriz[0]);
 /*Extraemos el total de columnas de la matriz dividiendo el tamaño en bytes de uno de sus elementos entre
 el tamaño en bytes del tipo de dato de la matriz*/
 int totalDeColumnas = sizeof(matriz[0])/sizeof(int);
-//Declaramos el valor con el que inicializamos los elementos de la matriz
-int valorInicial = 0;
-//Paso 2: Declaramos una funcion para inicializar nuestra matirz con elementos en 0
-void inicializarMatriz(int filas, int columnas, int inicializador){
+//funcion para pedir valores al usuario
+void pedirValores(){
+	printf("Ingresa el valor para la posicion ");
+}
+//Paso 2: Declaramos una funcion para guardar en la matriz los valores ingresados
+void guardarValoresEnLaMatriz(int filas, int columnas){
 	for(int i = 0; i < filas; i++){
 		for(int j = 0; j < columnas; j++){
-			matriz[i][j] = inicializador;
+			pedirValores();
+			printf("[%d,%d]: ",i,j );
+			scanf("%d",&matriz[i][j]);
 		}
 	}
 }
@@ -35,7 +39,7 @@ void imprimirMatriz(int filas, int columnas){
 }
 //Funcion principal
 int main(){
-	inicializarMatriz(totalDeFilas, totalDeColumnas, valorInicial);
+	guardarValoresEnLaMatriz(totalDeFilas, totalDeColumnas);
 	imprimirMatriz(totalDeFilas, totalDeColumnas);
 	return 0;
 }
