@@ -1,43 +1,8 @@
-/*Entrada: Un carácter (char) que representa el símbolo romano (I, V, X, L, C, D, M).
-	Solo algunas letras pueden ir antes de otras para restar. Las combinaciones de resta son:
-		(IV)(4), (IX)(9), (XL)(40), (XC)(90), (CD)(400), y (CM)(900)*/
+/*Entrada: Un carácter (char) que representa el símbolo romano (I, V, X, L, C, D, M)*/
 
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-//Funcion que retorna el valor de la cadena del numero romano en numero arabigo
-int  calcularNumeroArabigo(char numeroRomano[]){
-        int numeroArabigo = 0;
-        for(int i = 0; i < strlen(numeroRomano); i++){
-                switch(numeroRomano[i]){
-                        case 'M':
-                                numeroArabigo += 1000;
-                                break;
-                        case 'D':
-                                numeroArabigo += 500;
-                                break;
-                        case 'C':
-                                numeroArabigo += 100;
-                                break;
-                        case 'L':
-                                numeroArabigo += 50;
-                                break;
-                        case 'X':
-                                numeroArabigo += 10;
-                                break;
-                        case 'V':
-                                numeroArabigo += 5;
-                                break;
-                        case 'I':
-                                numeroArabigo += 1;
-                                break;
-                        default:
-				return 0;
-                                break;
-                }
-        }
-        return numeroArabigo;
-}
 //Funcion que retorna el valor del numero romano a un digito en numero arabigo
 int  romanoAEntero(char numeroRomano){
 	switch(numeroRomano){
@@ -66,6 +31,23 @@ int  romanoAEntero(char numeroRomano){
 			return 0;
 			break;
 	}
+}
+//Funcion que retorna el valor de la cadena del numero romano en numero arabigo
+int  calcularNumeroArabigo(char numeroRomano[]){
+        int numeroArabigo = 0;
+	int actual, siguiente, auxiliar;
+        for(int i = 0; i < strlen(numeroRomano); i++){
+		actual = romanoAEntero(numeroRomano[i]);
+		siguiente = romanoAEntero(numeroRomano[i+1]);
+		if(actual >= siguiente){
+			numeroArabigo += actual;
+		}else {
+			auxiliar = siguiente - actual;
+			numeroArabigo += auxiliar;
+			i++;
+		}
+        }
+        return numeroArabigo;
 }
 //Funcion para validar el caracter ingresado que pertenesca al sistema de numeros romanos
 void validarNumeroRomano(char numeroRomano){
@@ -108,7 +90,7 @@ void validarNumeroRomanoCadena(char numeroRomano[]){
                 }
         }
         if(operar == 0){
-                printf("El numero arabigo es: %d\n", calcularNumeroArabigo(numeroRomano));
+		printf("El numero arabigo es: %d\n", calcularNumeroArabigo(numeroRomano));
         }
 }
 //Funcion principal
