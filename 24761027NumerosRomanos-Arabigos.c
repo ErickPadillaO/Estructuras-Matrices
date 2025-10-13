@@ -1,4 +1,4 @@
-/*Entrada: Un carácter (char) que representa el símbolo romano (I, V, X, L, C, D, M)*/
+/*Programa para convertir una entrada en numero romano (I, V, X, L, C, D, M) a numero arabigo*/
 
 #include <stdio.h>
 #include <string.h>
@@ -42,9 +42,14 @@ int  calcularNumeroArabigo(char numeroRomano[]){
 		if(actual >= siguiente){
 			numeroArabigo += actual;
 		}else {
-			auxiliar = siguiente - actual;
-			numeroArabigo += auxiliar;
-			i++;
+			if(actual*2 == siguiente){
+				return 0;
+				break;
+			} else {
+				auxiliar = siguiente - actual;
+				numeroArabigo += auxiliar;
+				i++;
+			}
 		}
         }
         return numeroArabigo;
@@ -60,9 +65,9 @@ void validarNumeroRomano(char numeroRomano){
 		}
 	}
 	if(validar == 0){
-		printf("El numero NO es romano\n");
+		printf("\nEl numero NO es romano\n");
 	} else {
-		printf("El numero romano en arabigo es: %d\n", romanoAEntero(numeroRomano));
+		printf("\nEl numero romano en arabigo es: %d\n", romanoAEntero(numeroRomano));
 	}
 }
 //Funcion para convertir cadena en MAYUSCULAS
@@ -74,29 +79,52 @@ void numeroRomanoMayusculas(char numeroRomano[]){
 //Funcion para validar que la cadena de caracteres ingresados pertenesca al sistema de numeros romanos
 void validarNumeroRomanoCadena(char numeroRomano[]){
         char letrasNumerosRomanos[] = {'M','D','C','L','X','V','I'};
-        int operar = 0;
+        int operar = 0, noRepetirV = 0, noRepetirL = 0, noRepetirD = 0;
         for(int i = 0; i < strlen(numeroRomano); i++){
                 int validar = 0;
                 for(int j = 0; j < strlen(letrasNumerosRomanos); j++){
                         if(numeroRomano[i] == letrasNumerosRomanos[j]){
+				if(numeroRomano[i] == 'V'){
+					noRepetirV++;
+				}
+				if(numeroRomano[i] == 'L'){
+					noRepetirL++;
+				}
+				if(numeroRomano[i] == 'D'){
+					noRepetirV++;
+				}
                                 validar++;
+				if(numeroRomano[i] == numeroRomano[i+1] && numeroRomano[i] == numeroRomano[i+2] && numeroRomano[i] == numeroRomano[i+3]){
+					printf("\nEl caracter %c se repite mas de tres veces seguidas!\nEscritura incorrecta\n", numeroRomano[i]);
+					operar++;
+					break;
+				}
                                 break;
                         }
                 }
+		if(noRepetirV > 1 || noRepetirL > 1 || noRepetirD > 1){
+			printf("\nNo se debe repetir ninguno de estos valores (V, L, D) en la cadena\n");
+			operar++;
+			break;
+		}
                 if(validar == 0){
-                        printf("El numero NO es romano\n");
+                        printf("\nEl numero NO es romano\n");
                         operar++;
                         break;
                 }
         }
         if(operar == 0){
-		printf("El numero arabigo es: %d\n", calcularNumeroArabigo(numeroRomano));
-        }
+		if(calcularNumeroArabigo(numeroRomano) != 0){
+			printf("\nEl numero arabigo es: %d\n", calcularNumeroArabigo(numeroRomano));
+        	} else {
+			printf("\nEscritura incorrecta\n");
+		}
+	}
 }
 //Funcion principal
 int main(){
 	char numeroRomano[30];
-	printf("Ingresa el numero romano: ");
+	printf("*** Programa para convertir numeros romanos (I, V, X, L, C, D, M) a numeros arabigos ***\n\nIngresa el numero romano: ");
 	scanf("%s",numeroRomano);
 	numeroRomanoMayusculas(numeroRomano);
 	printf("Ingresaste %s\n", numeroRomano);
