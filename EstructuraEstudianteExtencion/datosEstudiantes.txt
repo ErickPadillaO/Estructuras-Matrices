@@ -1,0 +1,4 @@
+1000 Rosa 25 Calculo 9.50 Fisica 8.50 Quimica 7.00 8.33
+1001 Jorge 28 Calculo 8.10 Fisica 8.90 Quimica 8.80 8.60
+1002 Alfredo 25 Calculo 8.70 Fisica 7.60 Quimica 8.50 8.27
+1003 Erick 27 Calculo 8.00 Fisica 7.00 Quimica 7.50 7.50
